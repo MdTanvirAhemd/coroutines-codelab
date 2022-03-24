@@ -40,7 +40,7 @@ data class Title constructor(val title: String, @PrimaryKey val id: Int = 0)
 @Dao
 interface TitleDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertTitle(title: Title)
+    suspend fun insertTitle(title: Title)
 
     @get:Query("select * from Title where id = 0")
     val titleLiveData: LiveData<Title?>
@@ -74,3 +74,5 @@ fun getDatabase(context: Context): TitleDatabase {
     }
     return INSTANCE
 }
+
+// add the suspend modifier to the existing insertTitle
